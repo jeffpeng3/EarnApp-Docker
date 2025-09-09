@@ -3,7 +3,7 @@ FROM ubuntu:24.04@sha256:7c06e91f61fa88c08cc74f7e1b7c69ae24910d745357e0dfe1d2c03
 ENV container=docker
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && apt install -y wget && apt clean && apt autoremove -y && rm -rf /**var**/lib/apt/lists/*
+RUN apt update && apt install -y wget iputils-ping && apt clean && apt autoremove -y && rm -rf /**var**/lib/apt/lists/*
 
 WORKDIR /app
 
