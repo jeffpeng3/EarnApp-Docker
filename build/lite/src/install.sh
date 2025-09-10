@@ -11,6 +11,7 @@ sleep 2
 earnapp start
 sleep 2
 echo "Earnapp is running"
+earnapp run &
 
 fail_count=0
 while [ $fail_count -lt 3 ]; do
