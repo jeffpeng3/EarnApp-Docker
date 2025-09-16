@@ -6,6 +6,13 @@ touch /etc/earnapp/status
 chmod a+wr /etc/earnapp/status
 printf $EARNAPP_UUID > /etc/earnapp/uuid
 
+(
+    sleep 3600
+    echo "執行已超過一小時，自動關閉容器"
+    exit 1
+) &
+TIMER_PID=$!
+
 earnapp stop
 sleep 2
 earnapp start
@@ -26,3 +33,5 @@ while [ $fail_count -lt 3 ]; do
     fi
     sleep 30
 done
+
+kill $TIMER_PID 2>/dev/null
