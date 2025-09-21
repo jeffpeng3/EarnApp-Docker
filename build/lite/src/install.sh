@@ -6,13 +6,6 @@ touch /etc/earnapp/status
 chmod a+wr /etc/earnapp/status
 printf $EARNAPP_UUID > /etc/earnapp/uuid
 
-(
-    sleep 3600
-    echo "執行已超過一小時，自動關閉容器"
-    exit 1
-) &
-TIMER_PID=$!
-
 earnapp stop
 sleep 2
 earnapp start
@@ -25,6 +18,7 @@ while [ $fail_count -lt 3 ]; do
     if ping -c 1 -W 2 8.8.8.8 >/dev/null 2>&1; then
         fail_count=0
     else
+        echo "網路連線失敗，重新嘗試..."
         fail_count=$((fail_count + 1))
     fi
     if [ $fail_count -ge 3 ]; then
@@ -33,5 +27,3 @@ while [ $fail_count -lt 3 ]; do
     fi
     sleep 30
 done
-
-kill $TIMER_PID 2>/dev/null
