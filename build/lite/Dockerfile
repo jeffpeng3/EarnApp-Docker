@@ -19,4 +19,4 @@ RUN bash /app/src/setup.sh && rm -r /app/src
 
 VOLUME [ "/etc/earnapp" ]
 
-CMD ["timeout", "1h", "install"]
+CMD ["timeout", "4h", "install"]
